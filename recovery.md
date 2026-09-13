@@ -21,6 +21,16 @@ A rejected second heartbeat is an expected desktop constraint, not evidence that
 
 For long checkpoint/materialize/restore operations, the initial ticket is not proof of completion. Preserve the caller-generated operation ID, wait for its event, and inspect `operation_status.result`. If a connection disappears, query that same ID through an explicitly chosen available transport before deciding what to do. An interrupted operation may need reviewed continuation; a missing response does not justify starting a second operation with a new ID.
 
+## Client and checkpoint recovery
+
+After a signed update from candidate.5, follow the [launcher migration and standalone rollback commands](updates.md#existing-candidate5-installations). The migrated launcher verifies rollback without running an active client, including when that client is absent or revoked. Rechecking the same healthy release preserves the distinct previous rollback slot. Preserve unknown launcher changes for inspection rather than replacing them blindly.
+
+If the old candidate.5 launcher cannot start because no active client remains, the unchanged hash-pinned bootstrap can install a verified compatible repair into the same state directory. Its later `Existing stable launcher differs` refusal does not undo that installation. Verify the resulting active pointer and existing launcher `--help`, then invoke `migrate-launcher` through that repaired client. Follow the detailed update guide; other bootstrap errors do not establish a successful repair. Retain identity and the previous rollback slot throughout.
+
+A normal checkpoint restore must match the target research case, current source revision, and current Ghidra revision. If the purpose is explicitly file recovery, use `worktreeOnly: true`, inspect `checkpointResearch`, and retain the reported `researchConsistent: false` qualification. This never restores shared Ghidra. Empty directories and symlink metadata are preserved without copying link targets. Unknown checkpoints without controller metadata remain unavailable even in worktree-only mode.
+
+The owner's quota or login wait does not disable enabled friend work. Continue checking the friend's own allowance, and continue to respect manual pauses, disabled jobs, and finished/cancelled objectives. Ambiguously disabled older jobs require Albert's review rather than automatic resumption.
+
 ## Stale update lock
 
 An interrupted updater may leave `.update.lock` in the dedicated software directory. First verify that no updater process is active and preserve `active.json` and `security.json`. Only then remove that one lock file and retry the verified update. Do not remove identity/state or lower the security floor to recover an older release.

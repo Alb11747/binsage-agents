@@ -1,10 +1,16 @@
 # Published skill changelog
 
-**Rollout status, 2026-09-13:** all ten acceptance checks passed, including a real
-unattended desktop wake using the retained identity. The verified client remains
-`0.1.0-candidate.5`; this status update introduces no new skill or client release.
+**Historical rollout status, 2026-09-13:** candidate.5 passed all ten acceptance
+checks, including a real unattended desktop wake using the retained identity.
+That pass does not establish candidate.6 readiness.
 Check the [live readiness report](https://binsage.alb11747.com/contributor/v1/info)
 before enrollment. The notes below describe status at publication time.
+
+## Pending — 0.1.0-candidate.6
+
+Updated the research and recovery skills to distinguish owner quota waits from explicit research pauses, require matching case/source/Ghidra state for a normal checkpoint restore, and describe explicit worktree-only recovery. Added guidance for preserving empty directories and symlink metadata without copying target contents.
+
+Recovery guidance now covers verified migration of the candidate.5 launcher, rollback without an active client, and preserving the previous rollback version when the same healthy release is checked again. The original bootstrap remains unchanged. Candidate.6 requires live readiness verification before rollout.
 
 ## 2026-09-13 — 0.1.0-candidate.5
 
