@@ -1,0 +1,6 @@
+{
+  "keys": {
+    "binsage-maintainer-2026-09": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAN2bUGA8oti6X+AmR6fekRvRDcBYqNIR/g2KDADWeUwA=\n-----END PUBLIC KEY-----\n"
+  },
+  "policy": { "minimumSequence": 1, "revokedKeyIds": [] }
+}
