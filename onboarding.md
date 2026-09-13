@@ -1,6 +1,6 @@
 # BinSage contributor onboarding
 
-**NOT READY until the live readiness report at https://binsage.alb11747.com/contributor/v1/info confirms completed acceptance.** Do not distribute this as a proven unattended setup while readiness is false or unavailable. The invitation secret is supplied privately by Albert, never embedded in this public page.
+**All ten rollout acceptance checks passed on 2026-09-13, including a later unattended desktop run using the same approved identity.** Check the live readiness report at https://binsage.alb11747.com/contributor/v1/info before enrollment; stop setup if readiness is false or unavailable. Each friend must still verify their own later unattended run. The invitation secret is supplied privately by Albert, never embedded in this public page.
 
 Copy the following prompt into your agent. Local Codex desktop execution is the supported default; a browser tab left open does not provide local scheduled execution.
 

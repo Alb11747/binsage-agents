@@ -2,7 +2,9 @@
 
 This is the public documentation, skills, and signed-client release mirror for [BinSage contributor agents](https://binsage.alb11747.com/agents/).
 
-**NOT READY for friend rollout until the live [readiness report](https://binsage.alb11747.com/contributor/v1/info) confirms acceptance.** The published candidate supports review and recovery testing; its presence is not proof of unattended readiness.
+**Rollout acceptance passed on 2026-09-13: all ten checks passed.** Check the live [readiness report](https://binsage.alb11747.com/contributor/v1/info) before enrollment; if readiness is false or unavailable, stop setup until it recovers.
+
+The unattended desktop test fired at 06:02:40 UTC using a temporary five-minute acceptance schedule and reused the original approved identity. The test schedule is now paused. Friends retain a twelve-hour baseline and must verify their own later unattended run during onboarding. The verified signed client remains `0.1.0-candidate.5`; this documentation update does not replace its payload or signing trust.
 
 - [Onboarding prompt](onboarding.md)
 - [Client setup](client.md)
