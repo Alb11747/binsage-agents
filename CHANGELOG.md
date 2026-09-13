@@ -1,10 +1,10 @@
 # Published skill changelog
 
-**Historical rollout status, 2026-09-13:** candidate.5 passed all ten acceptance
-checks, including a real unattended desktop wake using the retained identity.
-That pass does not establish candidate.6 readiness.
-Check the [live readiness report](https://binsage.alb11747.com/contributor/v1/info)
-before enrollment. The notes below describe status at publication time.
+**Rollout status, 2026-09-13:** candidate.6 passed all ten acceptance checks,
+including an actual native desktop wake using the retained identity. The signed
+client and skills remain unchanged by this status update. Check the
+[live readiness report](https://binsage.alb11747.com/contributor/v1/info) before
+enrollment. The notes below describe published skill changes.
 
 ## 2026-09-13 — 0.1.0-candidate.6
 

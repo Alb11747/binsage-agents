@@ -1,6 +1,6 @@
 # BinSage contributor onboarding
 
-**Candidate.5 passed all ten rollout acceptance checks on 2026-09-13, including a later unattended desktop run using the same approved identity.** That historical pass does not establish candidate.6 readiness. Check the live readiness report at https://binsage.alb11747.com/contributor/v1/info for the current release before enrollment; stop setup if readiness is false or unavailable. Each friend must still verify their own later unattended run. The invitation secret is supplied privately by Albert, never embedded in this public page.
+**Candidate.6 passed all ten rollout acceptance checks on 2026-09-13, including a later unattended desktop run using the same approved identity.** Check https://binsage.alb11747.com/contributor/v1/info before enrollment; stop setup if readiness is false or unavailable. Each friend must still verify their own later unattended run. The invitation secret is supplied privately by Albert, never embedded in this public page.
 
 Copy the following prompt into your agent. Local Codex desktop execution is the supported default; a browser tab left open does not provide local scheduled execution.
 
