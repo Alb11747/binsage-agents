@@ -6,7 +6,7 @@ That pass does not establish candidate.6 readiness.
 Check the [live readiness report](https://binsage.alb11747.com/contributor/v1/info)
 before enrollment. The notes below describe status at publication time.
 
-## Pending — 0.1.0-candidate.6
+## 2026-09-13 — 0.1.0-candidate.6
 
 Updated the research and recovery skills to distinguish owner quota waits from explicit research pauses, require matching case/source/Ghidra state for a normal checkpoint restore, and describe explicit worktree-only recovery. Added guidance for preserving empty directories and symlink metadata without copying target contents.
 
