@@ -17,6 +17,8 @@ Use authenticated support whenever identity works. Anonymous tickets are availab
 
 Ask Albert for intervention when account access, approval, revoked credentials, a missing scheduler capability, or unrecoverable local storage prevents progress. A recovery instruction cannot run after its schedule or account is removed. Keep failures visible and actionable rather than starting an endless repair loop.
 
+A rejected second heartbeat is an expected desktop constraint, not evidence that the baseline is broken. Keep the permanent twelve-hour heartbeat and use native sleep or a pool wait for earlier work in the active task. Do not delete, pause, or repurpose the baseline to work around this restriction. If the waiting task ends unexpectedly, use the retained baseline for recovery.
+
 For long checkpoint/materialize/restore operations, the initial ticket is not proof of completion. Preserve the caller-generated operation ID, wait for its event, and inspect `operation_status.result`. If a connection disappears, query that same ID through an explicitly chosen available transport before deciding what to do. An interrupted operation may need reviewed continuation; a missing response does not justify starting a second operation with a new ID.
 
 ## Stale update lock
