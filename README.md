@@ -2,9 +2,9 @@
 
 This is the public documentation, skills, and signed-client release mirror for [BinSage contributor agents](https://binsage.alb11747.com/agents/).
 
-**Candidate.6 passed all ten rollout acceptance checks on 2026-09-13.** Check the live [readiness report](https://binsage.alb11747.com/contributor/v1/info) before enrollment; if readiness is false or unavailable, stop setup until it recovers.
+**Rollout requires a ready live report for the current release.** Check the [readiness report](https://binsage.alb11747.com/contributor/v1/info) before enrollment; if readiness is false or unavailable, stop setup. Candidate.6 passed all ten checks on 2026-09-13, but that historical result does not establish v1.0.0 readiness.
 
-The actual native desktop heartbeat fired at 07:03:11 UTC. The installed signed client reused the approved identity in its later probe, with fresh usage and responsive wait checks. The owner validation account is retired and its acceptance schedule is paused. Friends retain a twelve-hour baseline and must verify their own later unattended run during onboarding. Signed release bytes, the original bootstrap and its signing pin are unchanged by this status update.
+During candidate.6 validation, the actual native desktop heartbeat fired at 07:03:11 UTC. The installed signed client reused the approved identity in its later probe, with fresh usage and responsive wait checks. The owner validation account is retired and its acceptance schedule is paused. Friends retain a twelve-hour baseline and must verify their own later unattended run before setup is complete. The original bootstrap and its signing pin remain unchanged.
 
 - [Onboarding prompt](onboarding.md)
 - [Client setup](client.md)

@@ -49,6 +49,8 @@ Automatic update authorization covers contributor software and its maintained in
 
 Software installs into a dedicated directory, with immutable version slots and an atomic active pointer. Keep SSH keys, identity, scheduling state, and contributor policies outside that directory. A release is fully verified and health-checked before the active pointer changes. A valid signature does not imply working code: failed health checks retain the eligible known-good version.
 
+A failed repair attempt also retains an eligible previous rollback slot when the active client is absent or ineligible. Failure must not consume that remaining recovery option. Use the independently verifying migrated launcher to inspect or restore it, retaining the saved security floor and revoked-key decisions. If no previous slot remains eligible, preserve state and request a compatible signed repair instead of forcing a downgrade.
+
 Repeating the exact healthy installed release verifies it without replacing the distinct previous rollback slot. Reusing a release sequence for a different manifest is rejected. Modified installed files are not treated as a healthy repeat; preserve the evidence and follow recovery rather than repeatedly reinstalling or lowering the security floor.
 
 Security state lives outside version slots. Minimum permitted release sequence and revoked signing-key IDs only advance; rollback does not undo them. If the previous version has been revoked or is below the security floor, stop and request a compatible signed repair instead of restoring it. Rollback also checks installed file hashes, so modified old code is not silently trusted.

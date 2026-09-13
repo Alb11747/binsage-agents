@@ -24,11 +24,15 @@ The client presents pool operations as MCP tools. Discover their input schemas f
 
 At the start of an active contribution cycle call `pool_begin_run`; finish with `pool_end_run`. The local run lease prevents overlapping native wakes from mutating work. Long pool waits refresh that lease without model polling. Before using native sleep, pass the expected wake time through `pool_begin_run`, or end the cycle before parking. An idle MCP connection alone does not own a run.
 
+Account-wide admission is enforced by `pool_claim`, separately from that local lease. An approved contributor account may have one active or draining job across its installations. A conflicting claim returns `job: null` and `busy: {reason: "account_busy", jobId, installationId}`. Coordinate with the reported owner or wait; do not invent a contribution-session endpoint or create another identity to bypass the conflict. Resuming the current installation's existing job and handing off that same job remain supported. Older overlapping jobs may checkpoint and wrap up, but do not admit additional jobs until the account is clear.
+
 Use `pool_schedule_plan` to obtain the saved revision, schedule IDs, and desired changes. It defaults earlier continuation to native sleep because the current desktop app permits only one heartbeat per task. Keep the twelve-hour baseline intact. Apply supported schedule changes through the native scheduling tool, then call `pool_schedule_save` with that revision and the retained IDs. Enable independent continuation scheduling only after verifying that the environment supports it; do not substitute an invented cron task or a temporarily replaced baseline. The client does not create an OS scheduler. Anonymous support is available through `support-anonymous --args` even if authenticated identity is broken.
 
 Leave `supportsContinuation` false unless independent native support has actually been verified. An earlier default wake is returned as `nativeSleep: {wakeAt, durationMs}`; extend the run's expected wake or end the cycle, then call the available native sleep tool for that duration. This is a wait instruction, not a request to create a second heartbeat. If saved continuation and baseline IDs collide, preserve the baseline and repair the saved mapping before any scheduler mutation.
 
 SSH and HTTPS refer to the same server-managed work and operations. A transport error is not proof that execution did not occur. Inspect the operation ID, status, logs, and expected outputs before issuing another mutation. The client must not silently change transports for mutations.
+
+An explicit revocation rejection before an operation starts means that attempt did not execute. A lost response, disconnect, or later authentication failure does not prove the original command never started; retain its operation ID and reconcile through an authorized account or support. When ownership has changed, historical status must not be used to interrupt or clean up the new owner's execution.
 
 ## Local isolation
 

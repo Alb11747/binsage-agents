@@ -4,6 +4,8 @@ Approved agents share research and may help manage one another's work. The share
 
 Before editing, list agents, last-seen/expected-wake information, jobs, worktrees, and resource owners. Claim compatible queued work and use one worktree per active job. Transfer its ownership explicitly when handing off. Never treat a stale last-seen timestamp alone as proof that a process stopped.
 
+`pool_claim` is the account-wide admission boundary: one active or draining job per contributor account across installations. When it returns `busy.reason: "account_busy"`, inspect the returned job and installation IDs and coordinate with that owner. Local `pool_begin_run`/`pool_end_run` leases only serialize the local contribution cycle; they do not grant another server job. Existing overlapping jobs may finish their current bounded work, checkpoint, and yield or complete, while new admissions wait. A handoff transfers the same job rather than allocating an additional one.
+
 Coordinate before changing shared dependencies, cleaning caches or project directories, restarting services, editing another worktree, rebasing, resetting, force-pushing, or otherwise performing global operations. Use separate build/output directories. Preserve manually paused research and do not turn an idle exploration request into permission to resume it.
 
 The owner's quota wait, login interruption, or queued state alone does not pause enabled contributor work: friends use their own allowance. Respect an explicit manual pause, disabled job, or finished/cancelled objective. An older ambiguously disabled job stays disabled until Albert reviews it; do not infer permission to resume it from the owner's quota reset.
@@ -18,11 +20,15 @@ List running agents and their last-seen times before coordination. Target interr
 
 Retain the server operation ID when executing work. On an SSH disconnect, inspect its status, logs, and expected output. Choose HTTPS explicitly only after understanding what happened. Do not replay a mutation because its response was lost.
 
+Distinguish an explicit pre-execution revocation rejection from uncertainty after a request may have started. A later authentication failure alone does not classify the original operation. Preserve its ID and seek authorized reconciliation. Once a job has a new owner or generation, historical status is evidence about the old operation; it must not cancel, mark failed, or clean up the new owner's work. Coordinate any intervention using the current owner and the exact intended operation.
+
 Checkpoint capture, checkpoint restoration, and artifact materialization are asynchronous. Generate and save a UUID `operationId` before each request. The immediate reply is a durable operation ticket, not the finished result. Use `pool_wait` for completion messages and inspect `operation_status` with `{id: operationId}`. Status distinguishes starting, running, succeeded, failed, cancelled, and interrupted. On success, read `result`; for checkpoint capture, `result.id` identifies the verified checkpoint. Retain the same operation ID after an uncertain response and inspect it before any explicit retry. Never generate a fresh ID merely because a long transfer or checkpoint outlasted a connection.
 
 Finish tracked writers or request an acknowledged pause before a checkpoint. Include the exact source revision, required unstaged/untracked files, immutable output artifacts, and Ghidra revision. A source commit alone does not preserve dirty research state. Confirm that every manifest object exists and validates before marking a checkpoint complete; explicitly mark incomplete capture as unsuitable for automatic resume.
 
 Worktree checkpoints preserve empty directories, directory modes, and symlinks as link metadata. Relative, absolute, external, and dangling link targets are retained verbatim, never dereferenced or copied into the checkpoint. Restore writes files/directories first and symlinks last, and rejects duplicate/conflicting entry paths or entries beneath a symlink or regular file. This preserves environments that rely on links without granting access beyond the execution sandbox.
+
+Checkpoint paths use POSIX worktree semantics. Colons and backslashes in a filename are preserved literally; a backslash is not rewritten as a directory separator. Keep these names intact when restoring to the Linux worktree. The stricter portable-name rules for signed software update packages do not apply to research checkpoint filenames.
 
 Default restore requires controller-verified checkpoint metadata, the target job's matching case, the current source revision, and the current shared Ghidra revision. Ghidra is serialized through compatibility checking and file restoration; restoration does not roll the shared Ghidra service back. If source state changes during copying, inspect the failed operation and reconcile the worktree rather than treating it as a complete research restore.
 

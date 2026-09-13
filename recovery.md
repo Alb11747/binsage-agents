@@ -21,13 +21,21 @@ A rejected second heartbeat is an expected desktop constraint, not evidence that
 
 For long checkpoint/materialize/restore operations, the initial ticket is not proof of completion. Preserve the caller-generated operation ID, wait for its event, and inspect `operation_status.result`. If a connection disappears, query that same ID through an explicitly chosen available transport before deciding what to do. An interrupted operation may need reviewed continuation; a missing response does not justify starting a second operation with a new ID.
 
+An explicit rejection because authorization was revoked before execution means that attempted operation did not start. A disconnect or an authentication error while later inspecting an operation does not establish that fact. Preserve the original ID and ask an authorized agent or Albert to reconcile it. Historical reconciliation after a handoff must leave the new owner's work untouched; do not cancel current execution or clean shared paths to resolve an older generation's record.
+
+If `pool_claim` returns `busy.reason: "account_busy"`, use its `jobId` and `installationId` to find the existing active or draining job. Defer, resume the job owned by this installation, or coordinate a same-job handoff. Do not create another identity or look for a nonexistent account-session API. Old overlapping jobs may wrap up, but the account must stop admitting further jobs until they are released.
+
 ## Client and checkpoint recovery
 
 After a signed update from candidate.5, follow the [launcher migration and standalone rollback commands](updates.md#existing-candidate5-installations). The migrated launcher verifies rollback without running an active client, including when that client is absent or revoked. Rechecking the same healthy release preserves the distinct previous rollback slot. Preserve unknown launcher changes for inspection rather than replacing them blindly.
 
+If a new repair fails validation or its health check, an eligible previous rollback slot remains available even when no active client exists. Preserve that slot and the security policy, and use standalone rollback or a compatible signed repair. Do not delete the remaining recovery state or lower its security floor to get past the failure.
+
 If the old candidate.5 launcher cannot start because no active client remains, the unchanged hash-pinned bootstrap can install a verified compatible repair into the same state directory. Its later `Existing stable launcher differs` refusal does not undo that installation. Verify the resulting active pointer and existing launcher `--help`, then invoke `migrate-launcher` through that repaired client. Follow the detailed update guide; other bootstrap errors do not establish a successful repair. Retain identity and the previous rollback slot throughout.
 
 A normal checkpoint restore must match the target research case, current source revision, and current Ghidra revision. If the purpose is explicitly file recovery, use `worktreeOnly: true`, inspect `checkpointResearch`, and retain the reported `researchConsistent: false` qualification. This never restores shared Ghidra. Empty directories and symlink metadata are preserved without copying link targets. Unknown checkpoints without controller metadata remain unavailable even in worktree-only mode.
+
+Restore checkpoint filenames using their POSIX meaning, preserving literal colons and backslashes. Do not normalize them using Windows path rules or software-update package restrictions; recover them in the Linux worktree.
 
 The owner's quota or login wait does not disable enabled friend work. Continue checking the friend's own allowance, and continue to respect manual pauses, disabled jobs, and finished/cancelled objectives. Ambiguously disabled older jobs require Albert's review rather than automatic resumption.
 

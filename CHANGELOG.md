@@ -1,10 +1,16 @@
 # Published skill changelog
 
-**Rollout status, 2026-09-13:** candidate.6 passed all ten acceptance checks,
-including an actual native desktop wake using the retained identity. The signed
-client and skills remain unchanged by this status update. Check the
+**Historical rollout status, 2026-09-13:** candidate.6 passed all ten acceptance checks,
+including an actual native desktop wake using the retained identity. This does not
+establish readiness for later releases. Check the
 [live readiness report](https://binsage.alb11747.com/contributor/v1/info) before
 enrollment. The notes below describe published skill changes.
+
+## 1.0.0
+
+Updated research, coordination, and recovery guidance for account-wide claim admission, including `account_busy` responses, local-cycle leases, same-job handoffs, and wrapping up older overlapping jobs without taking additional work. Removed instructions implying a separate account contribution-session API.
+
+Clarified pre-execution revocation rejection versus uncertain execution, and reconciliation that leaves a new owner's work untouched. Recovery guidance now preserves literal POSIX checkpoint filenames and an eligible previous rollback slot after a failed repair. Setup is complete only when the current release's live readiness report is ready and the contributor's own unattended run is verified.
 
 ## 2026-09-13 — 0.1.0-candidate.6
 
